@@ -1,0 +1,370 @@
+LiveTech 0730 and 1030 AM Batch
+
+-------------------------------
+21st July Friday
+-------------------------------
+
+
+Waits in Selenium or Synchronization Techniques or timeouts etc 
+
+what is need of Synchronization ?
+
+our script will be very fast where as Applictaion can be slow because of different reasons
+
+- server can be slow 
+- internet is slow etc 
+
+org.openqa.selenium.NoSuchElementException: 
+no such element: 
+Unable to locate element: {"method":"xpath","selector":"//input[@name='firstname']"}
+
+
+NoSuchElementException:
+
+Reason 1 : if element is present but locator is given wrong and you are trying find 
+Solution : rectify the locator or correct the locator
+
+Reason 2 : if element is present yet loaded into DOM 
+Solution : we need to use Wait concept
+
+Reason 3: if element is present in DOM but it exists in some frame 
+Solution : switch to frame 
+
+ 
+ 
+ 1) Hard Wait :
+ 
+ Thread.sleep(2000);== > this is java concept ==> which is not prefered
+ 
+ if element is appeared within 2 seconds but you have used Thread.sleep(20000) ,
+ 
+ it will wait till 20 seconds 
+ 
+ 
+ 2)Implicit Wait 
+ 
+ in Selenium 3.141.59 
+ 
+ driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+ 
+ or 
+ 
+ Selenium 4 
+ 
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+ 
+  
+ if element is present in DOM within 2 seconds then it will not wait remaining 18 seconds
+ 
+ this statement will be applied for all driver.findElement/s statements 
+ 
+ 3) Explicit Wait or Conditional Wait 
+ 
+ e.g 
+ 
+ https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html
+ 
+ 
+ WebDriverWait(C)
+ 
+ Constructors:
+ 
+ WebDriverWait(WebDriver, long) ; here first argument is driver object
+ 
+ second argument is long which represent always second 
+ 
+ ExpectedConditions (C):
+ 
+ many methods are present e.g 
+ 
+invisibilityOf(WebElement)
+invisibilityOfElementLocated(By)
+invisibilityOfElementWithText(By, String)
+isInvisible(WebElement)
+numberOfElementsToBe(By, Integer)
+numberOfElementsToBeLessThan(By, Integer)
+numberOfElementsToBeMoreThan(By, Integer)
+numberOfWindowsToBe(int) etc..
+
+ 
+ 4) Fluent Wait  
+ 
+ this is improved form of Explicit Wait
+ 
+ there are 3 improvements we can do for Explicit Wait 
+ 
+ i) WebDriver wait will always takes value which is in SECONDS , we can't change it to
+ mills or micros
+ 
+ withTimeout(Duration.ofSeconds(30))
+ 
+ 
+ ii) polling time is always 500 milli seconds which can't be changed
+ 
+ pollingEvery(Duration.ofMillis(300))
+ 
+ 
+ iii) no in built exception handling mechanism
+ 
+ ignoring(NoSuchElementException.class);
+ 
+ FluentWait<T>(C)
+ 
+ Constructors:
+ 
+ FluentWait(T)
+ 
+ T is generics  here T meant for WebDriver
+ 
+ 
+-------------------------------
+22nd July Saturday
+-------------------------------
+
+Radio Button 
+
+https://echoecho.com/htmlforms10.htm
+
+use isSelected():boolean for validation
+
+<input type="radio" name="group1" value="Milk">
+<input type="radio" name="group1" value="Butter" checked="">
+<input type="radio" name="group1" value="Cheese">
+
+	  Assert.assertEquals(driver.findElement(By.xpath("//input[@value='Milk']")).isSelected(), false);	  
+	  Assert.assertEquals(driver.findElement(By.xpath("//input[@value='Butter']")).isSelected(), true);	  
+	  Assert.assertEquals(driver.findElement(By.xpath("//input[@value='Cheese']")).isSelected(), false);	 
+	
+----------------------------------------------------
+Checkboxes
+
+----------------------------------------------------------
+WebTables
+
+
+HTML terminology
+
+component			tagname
+
+table 				table
+table header		thead
+table body			tbody
+rows				tr
+columns				td 
+
+
+
+https://www.timeanddate.com/worldclock/
+
+
+ 
+								WebTables
+								
+			Static									Dynamic
+				
+Static means rows and colums are constant
+
+Dynamic means rows and colums  may be changing 
+
+						
+Static WebTables :
+
+
+
+//table/tbody/tr[1]/td[1]/a     //table/tbody/tr[1]/td[2]  .....    //table/tbody/tr[1]/td[8]
+
+//table/tbody/tr[2]/td[1]/a
+
+:
+
+:
+
+//table/tbody/tr[36]/td[1]/a								
+								
+String part1="//table/tbody/tr[";
+
+String part2="]/td[1]/a";
+
+
+for all  table
+
+String part1="//table/tbody/tr[";
+
+String part2="]/td[";
+
+String part3="]";
+
+
+Dynamic WebTables :
+
+First you will focus on tbody of table
+and collect all rows (locator Strategy is tagname "tr")
+then in each row collect all columns (locator Strategy is tagname "td")
+
+
+--------------------------------
+https://www.hdfcbank.com/personal/resources/rates
+
+//font[text()='Domestic / NRO / NRE FIXED DEPOSIT RATE']/ancestor::div[@class='rates-header']/following-sibling::div[1]/descendant::td[text()='61 - 89 days']
+
+//font[text()='Domestic / NRO / NRE FIXED DEPOSIT RATE']/ancestor::div[@class='rates-header']/following-sibling::div[1]/descendant::td[text()='61 - 89 days']/following-sibling::td[1]
+
+//font[text()='Domestic / NRO / NRE FIXED DEPOSIT RATE']/ancestor::div[@class='rates-header']/following-sibling::div[1]/descendant::td[text()='61 - 89 days']/following-sibling::td[2]
+								
+
+Xpath axes :
+
+parent
+
+ancestor
+
+child
+
+descendant
+
+following-sibling
+
+//h3[contains(text(),'Marginal Cost Of Funds-Based Lending Rates')]/parent::div/following-sibling::div/descendant::p[text()='6 Month']/parent::td/following-sibling::td/p
+
+
+===========================================
+Maven 
+
+Project Management tool
+
+
+how to download and configure maven ?
+
+https://maven.apache.org/download.cgi
+
+download below zip file
+
+apache-maven-3.9.3-bin.zip
+
+
+configuration :
+
+go to environment variables 
+
+
+MAVEN_HOME D:\003 Live Tech\softwares\apache-maven-3.9.3-bin\apache-maven-3.9.3
+
+
+M2_HOME  D:\003 Live Tech\softwares\apache-maven-3.9.3-bin\apache-maven-3.9.3\bin
+
+path  D:\003 Live Tech\softwares\apache-maven-3.9.3-bin\apache-maven-3.9.3\bin
+
+how to check maven is configured ?
+
+go to cmd
+
+give below command
+
+mvn -version
+
+C:\Users\Riyaz>mvn -verison
+Apache Maven 3.9.3 (21122926829f1ead511c958d89bd2f672198ae9f)
+Maven home: D:\003 Live Tech\softwares\apache-maven-3.9.3-bin\apache-maven-3.9.3
+Java version: 11.0.18, vendor: Oracle Corporation, runtime: C:\Program Files\Java\jdk-11
+Default locale: en_IN, platform encoding: Cp1252
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+
+-----------------------------------
+Creating Maven Project
+
+group id : com.citibank
+
+artifact id : FrameworkAutomation
+
+
+src/main/java       ==> used by developers for app code
+src/main/resources  ==> used for app resources (non-java files)
+src/test/java       ==> used by developers for writing unit test cases  
+							 or testers for writing test scripts
+src/test/resources  ==> used by developers for test data (non-java files)
+							 or tester for test data (excel , properties ,screenshot etc)
+
+pom.xml  [Project Object Model xml]
+
+which will control all the dependencies(jars) , plugins etc 
+
+***********************************************************
+Java Season 3
+
+
+File Handling 
+
+
+how to create a file ?
+
+java.io
+
+File (C)
+
+constructor :
+
+File(String): here String is the path of the file with extension
+
+methods:
+
+createNewFile():boolean 
+
+this will create a file if it is not already exits 
+---------------------------------------------
+how to create a folder ?
+
+
+
+File (C)
+
+constructor :
+
+File(String): here String is the path of the folder 
+
+
+methods:
+
+
+mkdir():boolean
+this will create a folder if it is not already exits 
+
+-----------------------------------------------
+
+
+how to read and write an excel ?
+
+we need to use seperate jars or dependencies 
+
+from Apache community 
+
+those are called Apache Poi jars 
+
+org.apache.poi » poi
+
+org.apache.poi » poi-ooxml
+
+org.apache.poi » poi-scratchpad
+
+ <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>5.2.3</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>5.2.3</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-scratchpad</artifactId>
+    <version>5.2.3</version>
+</dependency>
+  
+
+
