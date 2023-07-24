@@ -1,0 +1,58 @@
+
+-------------------------------
+24th July Monday
+-------------------------------
+
+
+how to read excel ?
+
+							excels
+							
+							
+				.xls							.xlsx
+
+
+			HSSFWorkbook	Workbook(I)      XSSFWorkbook
+			HSSFSheet		Sheet(I)		 XSSFSheet
+			HSSFRow			Row(I)			 XSSFRow
+			HSSFCell		Cell(I)			 XSSFCell
+
+
+FileInputStream
+
+java.io 
+
+FileInputStream(File)
+FileInputStream(FileDescriptor)
+FileInputStream(String) : here string is path of the file with extension
+
+
+getSheet(String):XSSFSheet => here String is name of the sheet
+getSheetAt(int):XSSFSheet ==> here int is index of sheet
+
+methods in sheet :
+
+ws.getLastRowNum():int ==> this will return the index of last row (index starts from 0)
+
+ws.getPhysicalNumberOfRows():int ==> this will return the count of rows (excluding empty or null rows)
+
+
+
+to focus on any row :
+
+ws.getRow(int) : XSSFRow  : here int is index starts from 0 
+
+methods in Row :
+
+
+
+--------------------------
+Writing Excel 
+
+
+case 1 : modifying an existing cell
+
+case 2: creating a new cell in existing row 
+
+case 3: creating a new row and cell in it
+
